@@ -15,14 +15,14 @@ namespace RefToken
             RefService refService = new(obj);
             if (refService.PathsExist(_paths))
             {
-                result = (T)refService.FinalValue;
-                return true;
+                if (typeof(T) == refService.FinalValue.GetType())
+                {
+                    result = (T)refService.FinalValue;
+                    return true;
+                }
             }
-            else
-            {
-                result = default;
-                return false;
-            }
+            result = default;
+            return false;
         }
         public static bool Select<T>(object obj, string path, out T result)
         {
@@ -30,14 +30,14 @@ namespace RefToken
             RefService refService = new(obj);
             if (refService.PathsExist(paths))
             {
-                result = (T)refService.FinalValue;
-                return true;
+                if (typeof(T) == refService.FinalValue.GetType())
+                {
+                    result = (T)refService.FinalValue;
+                    return true;
+                }
             }
-            else
-            {
-                result = default;
-                return false;
-            }
+            result = default;
+            return false;
         }
     }
 }
